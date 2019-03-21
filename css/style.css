@@ -1,0 +1,329 @@
+
+/* Default settings for the whole page (child elements of the <body>) */
+body{
+	background-color: #ddd;
+	color: #2d2d2d;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 16px; /* Browsers' default font-size is also 16px in general */
+	margin: 0 0 60px 0; /* Margin only applies to <body>, not to child elements */
+	padding: 0; /* Padding only applies to <body>, not to child elements */
+}
+
+/* Quick Reset for headings and paragraph */
+h1, h2, h3, h4, h5, h6, p
+{
+	margin: 0;
+	font-weight: normal;
+}
+
+/* Overriding default <a> colors */
+a, a:visited, a:active{
+	text-decoration: none;
+	color: #0c66b9;
+}
+
+/* Instead of using text-decoration: underline, we can show a dotted border when users hover an <a> */
+a:hover{
+	border-bottom: 1px dotted #0c66b9;
+}
+
+/* 
+	#header-area will fill the screen horizontally
+	Because It's a block element
+*/
+div#header-area{
+	background-color: #2d2d2d;
+	color: #f6f6f6;
+	padding: 20px 0; 
+	margin: 0 0 60px 0;
+	font-size: 18px;
+}
+
+/* 
+	Let's say we want to center multiple elements together 
+	In this case, we can group them in a wrapper div
+	Then we can center the wrapper div, so everything inside it will be centered automatically
+	If we have a common class for this purpose, we can use it anywhere
+	For example, #header-area has a .wrapper in it
+	Likewise, #content-area has a .wrapper in it
+	So, all .wrapper divs on the page will be centered by the rule below
+*/
+div.wrapper{
+	width: 600px;
+	margin: 0 auto; 
+}
+
+/* 
+	We have resetted the margin of <h2> element before
+	Now we can set a new value to have some space below it
+*/
+div.content-area h2{
+	margin: 0 0 20px 0; 
+	/* 
+	The code above is the shortcut for the codes below (order is important):
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 20px;
+	margin-left: 0;
+	*/
+}
+
+/*All .section divs can have a space below them, in order to separate things cleary*/
+div.section {
+	margin: 0 0 80px 0;
+	position: relative;
+}
+
+div.section-small-margin {
+	margin: 0 0 60px 0;
+}
+
+
+/* Basic styling of the icon boxes */
+.icon-box{
+	padding: 20px;
+	background-color: #2d2d2d;
+	width: 60px;
+	height: 60px;
+	text-align: center;
+	color: #f6f6f6;
+	font-size: 20px;
+}
+
+/* 	
+	With the code above, we expected width and height to be 60px
+	But it's 100px, why?
+	Because, by default, content width is the total of width, padding and border
+	It's default behaviour of box-sizing: content-box and it's counter intiutive
+	At this point, box-sizing: border-box is here to rescure
+	Now, padding and borders will be included in content's size 
+	In other words, total width will be 60px after adding paddings
+	Same rule applies to the height property as well
+
+	Applying border-box to one element should solve the problem for one element
+	But, we can apply it to everything by selecting each element on page
+	* selects every single element on the page
+	We can also select pseudo elements by ::before and ::after for later use;
+
+	It's better to include this rules at the top of the css file
+	We have it here just for demonstration
+*/
+*, *::before, *::after{
+	box-sizing: border-box;
+}
+
+/* 
+	Let's say we want .icon-box items to positioned side-by-side, horizontally
+	We can achive this by floating
+	float: right could be used to reverse ordering;
+*/
+.icon-box{
+	float: left;
+	border: 1px solid #ddd;
+}
+
+/* 
+	After floating, the layout should be messed up
+	Because after adding float:left, .icon-box elements start to float
+	Think of like this; they became inline elements like <a>
+	Inline elements float by default, occupy the space limited by their content and get the next available position horizontally
+	But block elements, on the contrary, occupy the available space completely
+	That's why we haven't set a width for #header-area
+	Because, <div> is a block element and fills the available space horizontally
+	So, we didn't specify it's width as 100%, it filled the space automatically
+
+	Long story short
+	If you want to align things horizontally by using float, group them in a <div> container
+	And, the container <div> should have the class below
+*/
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* 
+	Now layout is fixed
+	It's a good practice to have .clearfix at the top or end of the css file
+	Because it's a helper class, means, we'll use over and over 
+*/
+
+
+/* 
+	Let's apply floating to the .color-box items
+	Instead of setting fixed widths, we can use percentages
+	For example, 33.3% means 100/3 and we will have 3 boxes side by side in a row
+	25% means 100/4 and we will have 4 boxes in a row
+	And so on
+*/
+.color-box{
+	width: 33.3%;
+	float: left;
+	padding: 20px;
+	text-align: center;
+	background-color: red;
+}
+
+
+/* 
+	Be could identify color boxes by ids, like id='red-box'
+	Instead, we are using classes for bg and text colors
+	Why?
+	Because we can use these classes for other elements
+	So, they become helper classess
+	As a note, it's a better prcatice to keep helper classes at the bottom of the css codes, so they can't be overriden by mistake
+*/
+.bg-color-grey-dark{
+	background-color: #2d2d2d;
+	color: #f6f6f6;
+}
+
+.bg-color-grey-mid{
+	background-color: #b2b2b2;
+	color: #2d2d2d;
+}
+
+.bg-color-grey-light{
+	background-color: #f6f6f6;
+	color: #2d2d2d;
+}
+
+.bg-color-red{
+	background-color: #e73035;
+	color: #f6f6f6;
+}
+
+.bg-color-yellow{
+	background-color: #f1c828;
+	color: #2d2d2d;
+}
+
+.bg-color-blue{
+	background-color: #0c66b9;
+	color: #f6f6f6;
+}
+
+/* 
+	As we already know, we can include images by <img> tags in the HTML codes
+	Then we could resize images by width and height attributes
+	But, sometimes we need extra controls in terms of size, cropping, repeating, etc
+	So, we can use block elements, like divs, to contain images as background images
+	
+	To set a background image in CSS, we use background-image: url(folder/image.jpg) syntax 
+	While we could do this in this style.css file for each thumbnail element, we did it in the HTML file
+	By doing so, we find a practical way to use inline CSS codes
+	If you use a content management system, you'll realize it's easier to generate HTML than CSS
+	That's why we included in the HTML file
+
+	In practice, it's also possible to convert <img> to background css images using Javascript
+	But Javascript is not in the scope of this practice
+	So, let's proceed with inline styles
+
+	***
+	
+	As you remember, the width of the .wrapper is 600px
+	If we set each .thumbnail-box's width 290px, they should fill the space horizontally
+	Also we should set the height to make bg-images visible
+	
+	
+*/
+.thumbnail-box{
+	width: 290px;
+	height: 145px;
+	/*background-size: contain;*/
+	background-size: cover;
+	background-color: red;
+	background-position: center center;
+	background-repeat: no-repeat;
+	float: left;
+}
+
+/*
+	And, in order to have some space we can add some margins between .thumbnail-box elements	
+	Because the images have complex textures
+	It'd be better to have some space between them to prevent information overload, right
+	Let's add some margins to the left of each .thumbnail-box
+ */
+.thumbnail-box{
+	margin: 0 20px 20px 0;
+}
+
+/* 
+	After adding margins, layout is broken
+	Because total width of two .thumbnail-box elements is bigger then 600px after margins
+	290px + 20px + 290px + 20px = 620px
+	So, we have extra 20px on the right
+	We can remove that by selecting every 2nd .thumbnail-box
+	Then we can set their margin-right to 0
+*/
+.thumbnail-box:nth-of-type(2n){
+	margin: 0 0 20px 0;
+}
+
+
+/* 
+	When we use backround-image property, it's also possible set height by padding-top
+	This approach can be used if there are no elements in the container div
+	Because inner elements may have their own size and it may break the layout
+	(You can have inner elements but using another inner wrapper will be reqired with position:absolute)
+	(position:absolute is the topic of the next exercise)
+*/
+.hero-image-box{
+	width: 100%;
+	padding-bottom: 50%;
+	background-size: cover;
+	background-color: red;
+	background-position: top center;
+	background-repeat: no-repeat;
+}
+
+
+/* 
+	It's possible to identify something in a paragraph using <span></span> elements
+	Actually you can use <span></span> anywhere in the <body>
+	By default it's an empty inline element
+*/
+p span.txt-bold{
+	font-weight: bold;
+}
+
+/* 
+	You can set the line-height in 3 ways
+	1. Fixed values like 15px;
+	2. Relative values like 150%
+	3. Relative values like 1.5
+	
+	If you set a fixed value, your typographic harmony may be broken when you change the font-size of the text
+	If you set a relative value, line-height changes in relation to the given font-size
+	So, it's a good practice to use relative line-height value
+
+	In the example below; setting line-height to 15px, 150% and 150% gives the same result
+	Because font-size is 10px and 10 x 150% = 15
+	Also 10 x 1.5 = 15
+
+	As you may notice, 150/100 = 1.5
+	So 1.5 is the shortcut for 150%
+
+*/
+p{
+	font-size: 10px;
+	line-height: 15px;
+	line-height: 150%;
+	line-height: 1.5;
+	
+}
+
+
+/* Let's the font size to a more readable value and finish this session */
+p, li{
+	font-size: 14px;
+	line-height: 1.4;
+}
+
+	
+
+
+
+
+
